@@ -4,120 +4,192 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CS2 Raskidlar</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-:root{--bg:#0e1013;--sf:#181b20;--ln:#2a2e36;--tx:#ebe8e1;--mu:#8d929b;--T:#e2a63b;--CT:#5aa0e0;
+:root{--bg:#0c0e11;--sf:#161a1f;--sf2:#1d2229;--ln:#2a2f38;--tx:#eceae4;--mu:#8b919b;--T:#e2a63b;--CT:#5aa0e0;--ok:#4fae7a;--no:#d9533b;
 --hd:"Barlow Condensed","Arial Narrow",sans-serif;--bd:"Barlow",system-ui,sans-serif}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--bd)}
-body{padding:calc(12px + env(safe-area-inset-top,0px)) 14px calc(24px + env(safe-area-inset-bottom,0px));max-width:640px;margin:0 auto}
-button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
-h1,h2{font-family:var(--hd);margin:0;font-weight:700;text-transform:uppercase;letter-spacing:.02em;line-height:1}
-.top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.top h1{font-size:30px;flex:1}
-.bk{width:38px;height:38px;border-radius:10px;background:var(--sf);font-size:22px;line-height:1}
-#q{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--ln);background:var(--sf);color:var(--tx);font:16px var(--bd);margin-bottom:14px;outline:0}
-#q:focus{border-color:var(--mu)}
+body{padding:calc(10px + env(safe-area-inset-top,0px)) 14px calc(84px + env(safe-area-inset-bottom,0px));max-width:640px;margin:0 auto}
+button,input,select{font:inherit;color:inherit}
+button{border:0;background:none;cursor:pointer}
+h1,h2,h3{font-family:var(--hd);margin:0;font-weight:700;text-transform:uppercase;letter-spacing:.02em;line-height:1}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:14px;min-height:40px}
+.top h1{font-size:32px;flex:1}
+.bk{width:38px;height:38px;border-radius:10px;background:var(--sf);font-size:22px}
+.in{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--ln);background:var(--sf);font-size:16px;outline:0;margin-bottom:10px}
+.in:focus{border-color:var(--mu)}
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.tile,.mh{--c:#888;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 40%,#181b20),#14161a 72%);border:1px solid color-mix(in srgb,var(--c) 35%,#2a2e36);border-radius:14px}
-.tile{text-align:left;padding:14px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between}
-.tile h2{font-size:30px}
-.tile span,.mh span{font-size:13px;color:color-mix(in srgb,var(--c) 40%,#cfcfcf)}
-.mh{padding:18px 16px;margin-bottom:12px}
-.mh h2{font-size:52px}
-.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-.seg button{padding:12px;border-radius:12px;background:var(--sf);border:1px solid var(--ln);font:700 22px var(--hd);letter-spacing:.04em}
-.seg button.on[data-v=T]{background:var(--T);color:#1b1405;border-color:var(--T)}
-.seg button.on[data-v=CT]{background:var(--CT);color:#06121f;border-color:var(--CT)}
+.tile,.mh{--c:#888;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 42%,#161a1f),#12151a 75%);border:1px solid color-mix(in srgb,var(--c) 38%,#2a2f38);border-radius:16px}
+.tile{text-align:left;padding:14px;min-height:104px;display:flex;flex-direction:column;justify-content:space-between}
+.tile h2{font-size:32px}
+.tile span,.mh span{font-size:13px;color:color-mix(in srgb,var(--c) 45%,#d0d0d0)}
+.mh{padding:20px 16px;margin-bottom:12px}.mh h2{font-size:56px}
+.seg{display:flex;gap:8px;margin-bottom:10px}
+.seg button{flex:1;padding:12px 6px;border-radius:12px;background:var(--sf);border:1px solid var(--ln);font:700 20px var(--hd);letter-spacing:.04em}
+.seg button.on{color:#10131a;border-color:transparent;background:var(--c,#aaa)}
 .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px;scrollbar-width:none}
 .chip{flex:none;display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;border:1px solid var(--ln);background:var(--sf);font-size:14px;font-weight:500}
 .chip i{width:9px;height:9px;border-radius:50%;background:var(--c)}
-.chip.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 18%,#181b20)}
+.chip.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 18%,#161a1f)}
 .chip b{color:var(--mu);font-weight:500}
 .row{--c:#888;display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:13px 12px 13px 14px;margin-bottom:8px;background:var(--sf);border-radius:12px;border-left:4px solid var(--c)}
-.row div{flex:1;min-width:0}
-.row b{display:block;font-size:16px;font-weight:600}
+.row div{flex:1;min-width:0}.row b{display:block;font-size:16px;font-weight:600}
 .row small{display:block;color:var(--mu);font-size:13px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .row em{color:var(--mu);font-style:normal;font-size:20px}
 .empty{text-align:center;color:var(--mu);padding:34px 10px;line-height:1.5}
 .media{margin-bottom:14px}
 .media video,.media iframe,.media img{width:100%;border:0;border-radius:14px;background:#000}
 .media video,.media iframe{aspect-ratio:16/9}
-.dh{font-size:38px;margin-bottom:10px}
+.dh{font-size:40px;margin-bottom:10px}
 .tags{display:flex;gap:8px;margin-bottom:16px}
-.tag{padding:5px 12px;border-radius:999px;font-size:14px;font-weight:600;background:color-mix(in srgb,var(--c) 22%,#181b20);color:var(--c)}
+.tag{padding:5px 12px;border-radius:999px;font-size:14px;font-weight:600;background:color-mix(in srgb,var(--c) 22%,#161a1f);color:var(--c)}
 .step{padding:12px 14px;background:var(--sf);border-radius:12px;margin-bottom:8px}
-.step small{display:block;color:var(--mu);font-size:13px;margin-bottom:3px}
-.step p,.note{margin:0;line-height:1.45}
-.note{color:#c9c6bf;padding:6px 2px}
+.step small,.lb{display:block;color:var(--mu);font-size:13px;margin-bottom:5px}
+.step p,.note{margin:0;line-height:1.45}.note{color:#c9c6bf;padding:6px 2px}
+.btn{width:100%;padding:15px;border-radius:14px;background:var(--T);color:#16120a;font:700 22px var(--hd);letter-spacing:.04em;text-transform:uppercase}
+.btn:disabled{opacity:.5}
+.card{background:var(--sf);border-radius:14px;padding:12px;margin-bottom:12px}
+.card h3{font-size:24px;margin-bottom:4px}.card small{color:var(--mu)}
+.acts{display:flex;gap:8px;margin-top:10px}
+.acts button{flex:1;padding:11px;border-radius:10px;font-weight:600}
+.y{background:var(--ok);color:#06150d}.n{background:var(--sf2);color:var(--no);border:1px solid var(--ln)}
+.sec{font-size:22px;margin:18px 0 10px}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:6px;padding:8px 14px calc(8px + env(safe-area-inset-bottom,0px));background:rgba(12,14,17,.92);backdrop-filter:blur(12px);border-top:1px solid var(--ln)}
+nav button{flex:1;max-width:200px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px;border-radius:12px;color:var(--mu);font-size:12px;font-weight:500}
+nav button.on{color:var(--T);background:var(--sf)}
+nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+nav i{position:absolute;margin:-4px 0 0 18px;background:var(--no);color:#fff;font-style:normal;font-size:11px;min-width:16px;height:16px;border-radius:8px;text-align:center;line-height:16px}
 </style>
 </head>
 <body>
 <div class="top"><button class="bk" id="bk" data-a="back" hidden>‹</button><h1 id="ttl">Raskidlar</h1></div>
-<input id="q" placeholder="Qidirish: mirage window, jungle...">
+<input class="in" id="q" placeholder="Qidirish: mirage window, jungle...">
 <div id="app"></div>
+<nav id="nav"></nav>
 
 <script>
+/* Server manzili: Cloudflare Worker manzili (oxirida / siz) */
+const API="https://BU-YERGA-WORKER-MANZIL.workers.dev";
+
 const tg=window.Telegram&&Telegram.WebApp;
-if(tg){tg.ready();tg.expand();try{tg.setHeaderColor("#0e1013");tg.setBackgroundColor("#0e1013")}catch(e){}}
+if(tg){tg.ready();tg.expand();try{tg.setHeaderColor("#0c0e11");tg.setBackgroundColor("#0c0e11")}catch(e){}}
 const MAPS={mirage:["Mirage","#e08a3c"],inferno:["Inferno","#d9533b"],dust2:["Dust II","#c9a45c"],nuke:["Nuke","#4f9fd6"],ancient:["Ancient","#4fae7a"],anubis:["Anubis","#d4b23c"],overpass:["Overpass","#7aa36a"],vertigo:["Vertigo","#7b8fd4"]};
 const TYPES={smoke:["Smoke","#a3acb6"],flash:["Flash","#f0d44a"],molotov:["Molotov","#f0763a"],he:["HE","#7fc96a"]};
-let data=[],s={map:null,side:"T",type:null,item:null,q:""};
+const IC={home:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',add:'<path d="M12 5v14M5 12h14"/>',admin:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>'};
+let data=[],me=null,s={tab:"home",map:null,side:"T",type:null,item:null,q:""},fm={map:"mirage",side:"T",type:"smoke"};
 const $=id=>document.getElementById(id);
 const esc=t=>String(t==null?"":t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-
+const init=()=>tg?tg.initData:"";
+const say=m=>tg&&tg.showAlert?tg.showAlert(m):alert(m);
+const H={"ngrok-skip-browser-warning":"1"};
+async function post(p,b){
+  const r=await fetch(API+p,{method:"POST",headers:{...H,"Content-Type":"application/json"},body:JSON.stringify({initData:init(),...b})});
+  const j=await r.json().catch(()=>null);
+  if(!r.ok)throw new Error((j&&j.error)||await r.text().catch(()=>"")||"Server xatosi");
+  return j;
+}
 function media(u){
   if(!u)return"";
   const yt=u.match(/(?:youtu\.be\/|v=|shorts\/)([\w-]{11})/);
   if(yt)return`<iframe src="https://www.youtube.com/embed/${yt[1]}" allowfullscreen></iframe>`;
-  if(/\.(mp4|webm|mov)$/i.test(u))return`<video src="${esc(u)}" controls playsinline></video>`;
+  if(/\.(mp4|webm|mov)$/i.test(u)||u.includes("/api/file/"))return`<video src="${esc(u)}" controls playsinline></video>`;
   return`<img src="${esc(u)}" alt="">`;
 }
-function row(r,i,sub){
-  return`<button class="row" style="--c:${(TYPES[r.type]||[,"#888"])[1]}" data-a="item" data-v="${i}"><div><b>${esc(r.title)}</b><small>${esc(sub)}</small></div><em>›</em></button>`;
+const row=(r,i,sub)=>`<button class="row" style="--c:${(TYPES[r.type]||[,"#888"])[1]}" data-a="item" data-v="${i}"><div><b>${esc(r.title)}</b><small>${esc(sub)}</small></div><em>›</em></button>`;
+
+function nav(){
+  const t=[["home","Raskidlar"]];
+  if(me&&me.can_add)t.push(["add","Qo'shish"]);
+  if(me&&me.admin)t.push(["admin","Admin"]);
+  $("nav").style.display=t.length>1?"flex":"none";
+  $("nav").innerHTML=t.map(x=>`<button data-a="tab" data-v="${x[0]}" class="${s.tab===x[0]?"on":""}"><svg viewBox="0 0 24 24">${IC[x[0]]}</svg>${x[1]}${x[0]==="admin"&&me.pending?`<i>${me.pending}</i>`:""}</button>`).join("");
 }
 function render(){
-  const inMaps=!s.map&&s.item==null, searching=inMaps&&s.q.trim();
+  nav();
+  if(s.tab==="add")return viewAdd();
+  if(s.tab==="admin")return viewAdmin();
+  const inMaps=!s.map&&s.item==null,searching=inMaps&&s.q.trim();
   $("q").style.display=inMaps?"block":"none";
-  let h="",title="Raskidlar",back=!inMaps;
+  let h="",title="Raskidlar";
   if(s.item!=null){
     const r=data[s.item],tc=(TYPES[r.type]||["",""])[1],mc=r.side==="T"?"var(--T)":"var(--CT)";
     title=(MAPS[r.map]||[r.map])[0];
-    h=`<div class="media">${media(r.media)}</div><h2 class="dh">${esc(r.title)}</h2>
-    <div class="tags"><span class="tag" style="--c:${mc}">${esc(r.side)}</span><span class="tag" style="--c:${tc}">${esc((TYPES[r.type]||[r.type])[0])}</span></div>`
-    +[["Qayerda turish",r.stand],["Qayerga nishon",r.aim],["Qanday otish",r.throw]].filter(x=>x[1]).map(x=>`<div class="step"><small>${x[0]}</small><p>${esc(x[1])}</p></div>`).join("")
-    +(r.descr?`<p class="note">${esc(r.descr)}</p>`:"");
+    h=`<div class="media">${media(r.media)}</div><h2 class="dh">${esc(r.title)}</h2><div class="tags"><span class="tag" style="--c:${mc}">${esc(r.side)}</span><span class="tag" style="--c:${tc}">${esc((TYPES[r.type]||[r.type])[0])}</span></div>`
+    +[["Qayerda turish",r.stand],["Qayerga nishon",r.aim],["Qanday otish",r.throw]].filter(x=>x[1]).map(x=>`<div class="step"><small>${x[0]}</small><p>${esc(x[1])}</p></div>`).join("")+(r.descr?`<p class="note">${esc(r.descr)}</p>`:"");
   }else if(s.map){
     const [name,c]=MAPS[s.map],all=data.map((r,i)=>[r,i]).filter(x=>x[0].map===s.map&&x[0].side===s.side);
-    const cnt=t=>all.filter(x=>x[0].type===t).length;
-    const list=all.filter(x=>!s.type||x[0].type===s.type);
+    const cnt=t=>all.filter(x=>x[0].type===t).length,list=all.filter(x=>!s.type||x[0].type===s.type);
     title=name;
     h=`<div class="mh" style="--c:${c}"><h2>${name}</h2><span>${data.filter(r=>r.map===s.map).length} ta raskid</span></div>
-    <div class="seg">${["T","CT"].map(v=>`<button data-a="side" data-v="${v}" class="${s.side===v?"on":""}">${v}</button>`).join("")}</div>
+    <div class="seg">${["T","CT"].map(v=>`<button data-a="side" data-v="${v}" style="--c:var(--${v})" class="${s.side===v?"on":""}">${v}</button>`).join("")}</div>
     <div class="chips">${Object.keys(TYPES).map(t=>`<button class="chip ${s.type===t?"on":""}" style="--c:${TYPES[t][1]}" data-a="type" data-v="${t}"><i></i>${TYPES[t][0]} <b>${cnt(t)}</b></button>`).join("")}</div>`
-    +(list.length?list.map(x=>row(x[0],x[1],x[0].descr||x[0].stand||"")).join(""):`<div class="empty">Bu yerda hali raskid yo'q.<br>data.json fayliga qo'shing.</div>`);
+    +(list.length?list.map(x=>row(x[0],x[1],x[0].descr||x[0].stand||"")).join(""):`<div class="empty">Bu yerda hali raskid yo'q.</div>`);
   }else if(searching){
     const w=s.q.toLowerCase().split(/\s+/);
-    const res=data.map((r,i)=>[r,i]).filter(x=>{const t=`${x[0].map} ${(MAPS[x[0].map]||[""])[0]} ${x[0].side} ${x[0].type} ${x[0].title} ${x[0].descr||""}`.toLowerCase();return w.every(k=>t.includes(k))});
-    h=res.length?res.map(x=>row(x[0],x[1],`${(MAPS[x[0].map]||[x[0].map])[0]} · ${x[0].side}`)).join(""):`<div class="empty">Hech narsa topilmadi.<br>Boshqa so'z bilan qidirib ko'ring.</div>`;
-  }else{
-    h=`<div class="tiles">${Object.keys(MAPS).map(m=>`<button class="tile" style="--c:${MAPS[m][1]}" data-a="map" data-v="${m}"><h2>${MAPS[m][0]}</h2><span>${data.filter(r=>r.map===m).length} ta raskid</span></button>`).join("")}</div>`;
-  }
-  $("app").innerHTML=h; $("ttl").textContent=title;
-  const real=tg&&tg.initData;
-  $("bk").hidden=!back||!!real;
-  if(real){back?tg.BackButton.show():tg.BackButton.hide()}
+    const res=data.map((r,i)=>[r,i]).filter(x=>{const t=`${x[0].map} ${x[0].side} ${x[0].type} ${x[0].title} ${x[0].descr||""}`.toLowerCase();return w.every(k=>t.includes(k))});
+    h=res.length?res.map(x=>row(x[0],x[1],`${(MAPS[x[0].map]||[x[0].map])[0]} · ${x[0].side}`)).join(""):`<div class="empty">Hech narsa topilmadi.</div>`;
+  }else h=`<div class="tiles">${Object.keys(MAPS).map(m=>`<button class="tile" style="--c:${MAPS[m][1]}" data-a="map" data-v="${m}"><h2>${MAPS[m][0]}</h2><span>${data.filter(r=>r.map===m).length} ta raskid</span></button>`).join("")}</div>`;
+  $("app").innerHTML=h;$("ttl").textContent=title;
+  const sub=!inMaps,real=tg&&tg.initData;
+  $("bk").hidden=!sub||!!real;
+  if(real)sub?tg.BackButton.show():tg.BackButton.hide();
   window.scrollTo(0,0);
+}
+function viewAdd(){
+  $("q").style.display="none";$("ttl").textContent="Yangi raskid";$("bk").hidden=true;tg&&tg.BackButton.hide();
+  const seg=(k,o,c)=>`<div class="seg">${o.map(v=>`<button data-a="fm" data-k="${k}" data-v="${v[0]}" style="--c:${c||v[2]}" class="${fm[k]===v[0]?"on":""}">${v[1]}</button>`).join("")}</div>`;
+  $("app").innerHTML=`<span class="lb">Karta</span><select class="in" id="f_map">${Object.keys(MAPS).map(m=>`<option value="${m}" ${fm.map===m?"selected":""}>${MAPS[m][0]}</option>`).join("")}</select>
+  <span class="lb">Tomon</span>${seg("side",[["T","T","var(--T)"],["CT","CT","var(--CT)"]])}
+  <span class="lb">Granata</span>${seg("type",Object.keys(TYPES).map(t=>[t,TYPES[t][0],TYPES[t][1]]))}
+  <span class="lb">Nomi</span><input class="in" id="f_title" placeholder="Masalan: Window smoke" maxlength="80">
+  <span class="lb">Qayerda turish (ixtiyoriy)</span><input class="in" id="f_stand" placeholder="T rampa, chap devor yonida">
+  <span class="lb">Qayerga nishon (ixtiyoriy)</span><input class="in" id="f_aim" placeholder="Antenna tepasidagi bulut">
+  <span class="lb">Qanday otish (ixtiyoriy)</span><input class="in" id="f_throw" placeholder="Jump-throw, chap tugma">
+  <span class="lb">Video yoki rasm (10 MB gacha)</span><input class="in" id="f_file" type="file" accept="video/*,image/*">
+  <span class="lb">Yoki YouTube havolasi</span><input class="in" id="f_url" placeholder="https://youtu.be/...">
+  <button class="btn" id="sub" data-a="submit">Yuborish</button>`;
+}
+async function submit(){
+  const b=$("sub"),fd=new FormData(),v=k=>$("f_"+k).value;
+  fd.append("initData",init());fd.append("map",v("map"));fd.append("side",fm.side);fd.append("type",fm.type);
+  ["title","stand","aim","throw","url"].forEach(k=>fd.append(k,v(k)));
+  const f=$("f_file").files[0];if(f)fd.append("file",f);
+  b.disabled=true;b.textContent="Yuklanmoqda...";
+  try{
+    const r=await fetch(API+"/api/add",{method:"POST",headers:H,body:fd});
+    const j=await r.json().catch(()=>null);
+    if(!r.ok)throw new Error((j&&j.error)||await r.text().catch(()=>"")||"Xato");
+    say(j.msg);if(me.admin)loadData();s.tab="home";render();
+  }catch(e){say("Xato: "+e.message);b.disabled=false;b.textContent="Yuborish"}
+}
+async function viewAdmin(){
+  $("q").style.display="none";$("ttl").textContent="Admin";$("bk").hidden=true;tg&&tg.BackButton.hide();
+  $("app").innerHTML='<div class="empty">Yuklanmoqda...</div>';
+  try{
+    const [p,l]=await Promise.all([post("/api/pending",{}),post("/api/list",{})]);
+    me.pending=p.length;nav();
+    $("app").innerHTML=`<h3 class="sec" style="margin-top:0">Kutilayotganlar (${p.length})</h3>`
+    +(p.length?p.map(x=>`<div class="card"><h3>${esc(x.title)}</h3><small>${esc((MAPS[x.map]||[x.map])[0])} · ${x.side} · ${esc((TYPES[x.type]||[x.type])[0])} · ${esc(x.user_name)}</small>
+      ${x.stand||x.aim||x.throw?`<p class="note">${[x.stand,x.aim,x.throw].filter(Boolean).map(esc).join(" → ")}</p>`:""}
+      <div class="media" style="margin:10px 0 0">${media(x.media)}</div>
+      <div class="acts"><button class="y" data-a="rv" data-id="${x.id}" data-v="ok">Qabul qilish</button><button class="n" data-a="rv" data-id="${x.id}" data-v="no">Rad etish</button></div></div>`).join(""):'<div class="empty">Kutilayotgan raskid yo\'q 👍</div>')
+    +`<h3 class="sec">Barcha raskidlar (${l.length})</h3>`+l.map(x=>`<div class="row" style="--c:${(TYPES[x.type]||[,"#888"])[1]}"><div><b>${esc(x.title)}</b><small>${esc((MAPS[x.map]||[x.map])[0])} · ${x.side} · ${esc(x.type)}</small></div><button data-a="del" data-id="${x.id}" data-t="${esc(x.title)}" style="color:var(--no);font-size:14px">O'chirish</button></div>`).join("");
+  }catch(e){$("app").innerHTML=`<div class="empty">Xato: ${esc(e.message)}</div>`}
 }
 function back(){if(s.item!=null)s.item=null;else{s.map=null;s.type=null}render()}
 if(tg)tg.BackButton.onClick(back);
-document.addEventListener("click",e=>{
+document.addEventListener("click",async e=>{
   const el=e.target.closest("[data-a]");if(!el)return;
   const a=el.dataset.a,v=el.dataset.v;
   if(a==="back")return back();
+  if(a==="tab"){s.tab=v;if(v==="home"){s.map=null;s.item=null}return render()}
+  if(a==="fm"){fm[el.dataset.k]=v;fm.map=$("f_map").value;const k={};["title","stand","aim","throw","url"].forEach(x=>k[x]=$("f_"+x).value);viewAdd();for(const x in k)$("f_"+x).value=k[x];return}
+  if(a==="submit")return submit();
+  if(a==="rv"){try{await post("/api/review",{id:+el.dataset.id,action:v});if(v==="ok")loadData();viewAdmin()}catch(x){say("Xato: "+x.message)}return}
+  if(a==="del"){const go=async()=>{try{await post("/api/delete",{id:+el.dataset.id});loadData();viewAdmin()}catch(x){say("Xato: "+x.message)}};
+    return tg&&tg.showConfirm?tg.showConfirm(`"${el.dataset.t}" o'chirilsinmi?`,ok=>ok&&go()):confirm("O'chirilsinmi?")&&go()}
   if(a==="map"){s.map=v;s.type=null}
   if(a==="side"){s.side=v;s.type=null}
   if(a==="type")s.type=s.type===v?null:v;
@@ -125,9 +197,10 @@ document.addEventListener("click",e=>{
   render();
 });
 $("q").addEventListener("input",e=>{s.q=e.target.value;const y=window.scrollY;render();window.scrollTo(0,y)});
-fetch("data.json").then(r=>r.json()).then(j=>{data=j;render()})
-  .catch(()=>{$("app").innerHTML='<div class="empty">data.json yuklanmadi.<br>Fayl index.html yonida ekanini tekshiring.</div>'});
-render();
+function loadData(){return fetch("data.json?t="+Date.now()).then(r=>r.json()).then(j=>{data=j;if(s.tab==="home")render()}).catch(()=>{$("app").innerHTML='<div class="empty">data.json yuklanmadi.</div>'})}
+loadData();render();
+if(init())post("/api/me",{}).then(j=>{me=j;nav()}).catch(e=>{$("q").insertAdjacentHTML("beforebegin",'<div class="empty" style="padding:6px;color:#d9533b">Server ulanmadi: '+esc(e.message)+'</div>')});
+else $("q").insertAdjacentHTML("beforebegin",'<div class="empty" style="padding:6px">Mini App\'ni Telegram ichida oching.</div>');
 </script>
 </body>
 </html>
