@@ -4,89 +4,130 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CS2 Raskidlar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-:root{--bg:#fff;--fg:#111;--card:#f1f2f4;--accent:#2481cc;--hint:#777}
-@media (prefers-color-scheme:dark){:root{--bg:#17181b;--fg:#eee;--card:#25272c;--hint:#999}}
-*{box-sizing:border-box}
-body{margin:0;padding:12px;font-family:system-ui,sans-serif;background:var(--bg);color:var(--fg)}
-.row{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
-.chip{flex:none;padding:8px 14px;border-radius:20px;background:var(--card);color:var(--fg);border:0;font-size:14px}
-.chip.on{background:var(--accent);color:#fff}
-input{width:100%;padding:10px 12px;margin:4px 0 8px;border-radius:10px;border:0;background:var(--card);color:var(--fg);font-size:15px}
-.item{background:var(--card);border-radius:12px;padding:12px;margin-bottom:8px}
-.item b{display:block}
-.item small{color:var(--hint)}
-.empty{text-align:center;color:var(--hint);padding:30px 0}
-.back{display:none;margin-bottom:10px}
-video,img,iframe{width:100%;border-radius:12px;border:0;aspect-ratio:16/9;background:#000}
-img{aspect-ratio:auto}
+:root{--bg:#0e1013;--sf:#181b20;--ln:#2a2e36;--tx:#ebe8e1;--mu:#8d929b;--T:#e2a63b;--CT:#5aa0e0;
+--hd:"Barlow Condensed","Arial Narrow",sans-serif;--bd:"Barlow",system-ui,sans-serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--bd)}
+body{padding:calc(12px + env(safe-area-inset-top,0px)) 14px calc(24px + env(safe-area-inset-bottom,0px));max-width:640px;margin:0 auto}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+h1,h2{font-family:var(--hd);margin:0;font-weight:700;text-transform:uppercase;letter-spacing:.02em;line-height:1}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.top h1{font-size:30px;flex:1}
+.bk{width:38px;height:38px;border-radius:10px;background:var(--sf);font-size:22px;line-height:1}
+#q{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--ln);background:var(--sf);color:var(--tx);font:16px var(--bd);margin-bottom:14px;outline:0}
+#q:focus{border-color:var(--mu)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile,.mh{--c:#888;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 40%,#181b20),#14161a 72%);border:1px solid color-mix(in srgb,var(--c) 35%,#2a2e36);border-radius:14px}
+.tile{text-align:left;padding:14px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between}
+.tile h2{font-size:30px}
+.tile span,.mh span{font-size:13px;color:color-mix(in srgb,var(--c) 40%,#cfcfcf)}
+.mh{padding:18px 16px;margin-bottom:12px}
+.mh h2{font-size:52px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.seg button{padding:12px;border-radius:12px;background:var(--sf);border:1px solid var(--ln);font:700 22px var(--hd);letter-spacing:.04em}
+.seg button.on[data-v=T]{background:var(--T);color:#1b1405;border-color:var(--T)}
+.seg button.on[data-v=CT]{background:var(--CT);color:#06121f;border-color:var(--CT)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px;scrollbar-width:none}
+.chip{flex:none;display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;border:1px solid var(--ln);background:var(--sf);font-size:14px;font-weight:500}
+.chip i{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.chip.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 18%,#181b20)}
+.chip b{color:var(--mu);font-weight:500}
+.row{--c:#888;display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:13px 12px 13px 14px;margin-bottom:8px;background:var(--sf);border-radius:12px;border-left:4px solid var(--c)}
+.row div{flex:1;min-width:0}
+.row b{display:block;font-size:16px;font-weight:600}
+.row small{display:block;color:var(--mu);font-size:13px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row em{color:var(--mu);font-style:normal;font-size:20px}
+.empty{text-align:center;color:var(--mu);padding:34px 10px;line-height:1.5}
+.media{margin-bottom:14px}
+.media video,.media iframe,.media img{width:100%;border:0;border-radius:14px;background:#000}
+.media video,.media iframe{aspect-ratio:16/9}
+.dh{font-size:38px;margin-bottom:10px}
+.tags{display:flex;gap:8px;margin-bottom:16px}
+.tag{padding:5px 12px;border-radius:999px;font-size:14px;font-weight:600;background:color-mix(in srgb,var(--c) 22%,#181b20);color:var(--c)}
+.step{padding:12px 14px;background:var(--sf);border-radius:12px;margin-bottom:8px}
+.step small{display:block;color:var(--mu);font-size:13px;margin-bottom:3px}
+.step p,.note{margin:0;line-height:1.45}
+.note{color:#c9c6bf;padding:6px 2px}
 </style>
 </head>
 <body>
-<button class="chip back" id="back">⬅️ Orqaga</button>
-<div id="list">
-  <div class="row" id="maps"></div>
-  <div class="row" id="sides"></div>
-  <div class="row" id="types"></div>
-  <input id="q" placeholder="🔎 Qidirish...">
-  <div id="items"></div>
-</div>
-<div id="detail" style="display:none"></div>
+<div class="top"><button class="bk" id="bk" data-a="back" hidden>‹</button><h1 id="ttl">Raskidlar</h1></div>
+<input id="q" placeholder="Qidirish: mirage window, jungle...">
+<div id="app"></div>
 
 <script>
-const tg = window.Telegram.WebApp; tg.ready(); tg.expand();
-const MAPS=["mirage","inferno","dust2","nuke","ancient","anubis","overpass","vertigo"];
-const SIDES=["T","CT"], TYPES=["smoke","flash","molotov","he"];
-let data=[], f={map:null,side:null,type:null};
+const tg=window.Telegram&&Telegram.WebApp;
+if(tg){tg.ready();tg.expand();try{tg.setHeaderColor("#0e1013");tg.setBackgroundColor("#0e1013")}catch(e){}}
+const MAPS={mirage:["Mirage","#e08a3c"],inferno:["Inferno","#d9533b"],dust2:["Dust II","#c9a45c"],nuke:["Nuke","#4f9fd6"],ancient:["Ancient","#4fae7a"],anubis:["Anubis","#d4b23c"],overpass:["Overpass","#7aa36a"],vertigo:["Vertigo","#7b8fd4"]};
+const TYPES={smoke:["Smoke","#a3acb6"],flash:["Flash","#f0d44a"],molotov:["Molotov","#f0763a"],he:["HE","#7fc96a"]};
+let data=[],s={map:null,side:"T",type:null,item:null,q:""};
 const $=id=>document.getElementById(id);
-
-function chips(el,arr,key){
-  el.innerHTML="";
-  arr.forEach(v=>{
-    const b=document.createElement("button");
-    b.className="chip"+(f[key]===v?" on":"");
-    b.textContent=v.toUpperCase();
-    b.onclick=()=>{f[key]=f[key]===v?null:v;render()};
-    el.appendChild(b);
-  });
-}
+const esc=t=>String(t==null?"":t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 function media(u){
-  if(!u) return "";
-  const yt=u.match(/(?:youtu\.be\/|v=)([\w-]{11})/);
-  if(yt) return `<iframe src="https://www.youtube.com/embed/${yt[1]}" allowfullscreen></iframe>`;
-  if(/\.(mp4|webm)$/i.test(u)) return `<video src="${u}" controls playsinline></video>`;
-  return `<img src="${u}">`;
+  if(!u)return"";
+  const yt=u.match(/(?:youtu\.be\/|v=|shorts\/)([\w-]{11})/);
+  if(yt)return`<iframe src="https://www.youtube.com/embed/${yt[1]}" allowfullscreen></iframe>`;
+  if(/\.(mp4|webm|mov)$/i.test(u))return`<video src="${esc(u)}" controls playsinline></video>`;
+  return`<img src="${esc(u)}" alt="">`;
 }
-
+function row(r,i,sub){
+  return`<button class="row" style="--c:${(TYPES[r.type]||[,"#888"])[1]}" data-a="item" data-v="${i}"><div><b>${esc(r.title)}</b><small>${esc(sub)}</small></div><em>›</em></button>`;
+}
 function render(){
-  chips($("maps"),MAPS,"map"); chips($("sides"),SIDES,"side"); chips($("types"),TYPES,"type");
-  const q=$("q").value.toLowerCase();
-  const res=data.filter(r=>(!f.map||r.map===f.map)&&(!f.side||r.side===f.side)&&(!f.type||r.type===f.type)
-    &&(`${r.title} ${r.descr}`.toLowerCase().includes(q)));
-  $("items").innerHTML=res.length?"":'<div class="empty">Raskid topilmadi 😕</div>';
-  res.forEach(r=>{
-    const d=document.createElement("div"); d.className="item";
-    d.innerHTML=`<b>${r.title}</b><small>${r.map} · ${r.side} · ${r.type.toUpperCase()}</small>`;
-    d.onclick=()=>show(r); $("items").appendChild(d);
-  });
-}
-
-function show(r){
-  $("list").style.display="none"; $("detail").style.display="block"; $("back").style.display="inline-block";
-  $("detail").innerHTML=`<h3>${r.title}</h3><small>${r.map} · ${r.side} · ${r.type.toUpperCase()}</small>
-    <p>${r.descr||""}</p>${media(r.media)}`;
+  const inMaps=!s.map&&s.item==null, searching=inMaps&&s.q.trim();
+  $("q").style.display=inMaps?"block":"none";
+  let h="",title="Raskidlar",back=!inMaps;
+  if(s.item!=null){
+    const r=data[s.item],tc=(TYPES[r.type]||["",""])[1],mc=r.side==="T"?"var(--T)":"var(--CT)";
+    title=(MAPS[r.map]||[r.map])[0];
+    h=`<div class="media">${media(r.media)}</div><h2 class="dh">${esc(r.title)}</h2>
+    <div class="tags"><span class="tag" style="--c:${mc}">${esc(r.side)}</span><span class="tag" style="--c:${tc}">${esc((TYPES[r.type]||[r.type])[0])}</span></div>`
+    +[["Qayerda turish",r.stand],["Qayerga nishon",r.aim],["Qanday otish",r.throw]].filter(x=>x[1]).map(x=>`<div class="step"><small>${x[0]}</small><p>${esc(x[1])}</p></div>`).join("")
+    +(r.descr?`<p class="note">${esc(r.descr)}</p>`:"");
+  }else if(s.map){
+    const [name,c]=MAPS[s.map],all=data.map((r,i)=>[r,i]).filter(x=>x[0].map===s.map&&x[0].side===s.side);
+    const cnt=t=>all.filter(x=>x[0].type===t).length;
+    const list=all.filter(x=>!s.type||x[0].type===s.type);
+    title=name;
+    h=`<div class="mh" style="--c:${c}"><h2>${name}</h2><span>${data.filter(r=>r.map===s.map).length} ta raskid</span></div>
+    <div class="seg">${["T","CT"].map(v=>`<button data-a="side" data-v="${v}" class="${s.side===v?"on":""}">${v}</button>`).join("")}</div>
+    <div class="chips">${Object.keys(TYPES).map(t=>`<button class="chip ${s.type===t?"on":""}" style="--c:${TYPES[t][1]}" data-a="type" data-v="${t}"><i></i>${TYPES[t][0]} <b>${cnt(t)}</b></button>`).join("")}</div>`
+    +(list.length?list.map(x=>row(x[0],x[1],x[0].descr||x[0].stand||"")).join(""):`<div class="empty">Bu yerda hali raskid yo'q.<br>data.json fayliga qo'shing.</div>`);
+  }else if(searching){
+    const w=s.q.toLowerCase().split(/\s+/);
+    const res=data.map((r,i)=>[r,i]).filter(x=>{const t=`${x[0].map} ${(MAPS[x[0].map]||[""])[0]} ${x[0].side} ${x[0].type} ${x[0].title} ${x[0].descr||""}`.toLowerCase();return w.every(k=>t.includes(k))});
+    h=res.length?res.map(x=>row(x[0],x[1],`${(MAPS[x[0].map]||[x[0].map])[0]} · ${x[0].side}`)).join(""):`<div class="empty">Hech narsa topilmadi.<br>Boshqa so'z bilan qidirib ko'ring.</div>`;
+  }else{
+    h=`<div class="tiles">${Object.keys(MAPS).map(m=>`<button class="tile" style="--c:${MAPS[m][1]}" data-a="map" data-v="${m}"><h2>${MAPS[m][0]}</h2><span>${data.filter(r=>r.map===m).length} ta raskid</span></button>`).join("")}</div>`;
+  }
+  $("app").innerHTML=h; $("ttl").textContent=title;
+  const real=tg&&tg.initData;
+  $("bk").hidden=!back||!!real;
+  if(real){back?tg.BackButton.show():tg.BackButton.hide()}
   window.scrollTo(0,0);
 }
-$("back").onclick=()=>{
-  $("detail").style.display="none"; $("detail").innerHTML="";
-  $("list").style.display="block"; $("back").style.display="none";
-};
-$("q").oninput=render;
-
+function back(){if(s.item!=null)s.item=null;else{s.map=null;s.type=null}render()}
+if(tg)tg.BackButton.onClick(back);
+document.addEventListener("click",e=>{
+  const el=e.target.closest("[data-a]");if(!el)return;
+  const a=el.dataset.a,v=el.dataset.v;
+  if(a==="back")return back();
+  if(a==="map"){s.map=v;s.type=null}
+  if(a==="side"){s.side=v;s.type=null}
+  if(a==="type")s.type=s.type===v?null:v;
+  if(a==="item")s.item=+v;
+  render();
+});
+$("q").addEventListener("input",e=>{s.q=e.target.value;const y=window.scrollY;render();window.scrollTo(0,y)});
 fetch("data.json").then(r=>r.json()).then(j=>{data=j;render()})
-  .catch(()=>{$("items").innerHTML='<div class="empty">data.json yuklanmadi</div>'});
+  .catch(()=>{$("app").innerHTML='<div class="empty">data.json yuklanmadi.<br>Fayl index.html yonida ekanini tekshiring.</div>'});
+render();
 </script>
 </body>
 </html>
