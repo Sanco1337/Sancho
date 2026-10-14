@@ -1,0 +1,18 @@
+[
+  {
+    "map": "mirage",
+    "side": "T",
+    "type": "smoke",
+    "title": "Window smoke",
+    "descr": "Rampadan turib, jump-throw qiling.",
+    "media": "https://www.youtube.com/watch?v=XXXXXXXXXXX"
+  },
+  {
+    "map": "inferno",
+    "side": "CT",
+    "type": "molotov",
+    "title": "Banana molotov",
+    "descr": "CT spawndan turib otiladi.",
+    "media": "videos/banana-molly.mp4"
+  }
+]
