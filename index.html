@@ -4,202 +4,210 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CS2 Raskidlar</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-:root{--bg:#0c0e11;--sf:#161a1f;--sf2:#1d2229;--ln:#2a2f38;--tx:#eceae4;--mu:#8b919b;--T:#e2a63b;--CT:#5aa0e0;--ok:#4fae7a;--no:#d9533b;
---hd:"Barlow Condensed","Arial Narrow",sans-serif;--bd:"Barlow",system-ui,sans-serif}
+:root{--bg:#0a0b0d;--sf:#14161a;--ln:#262a31;--tx:#f1efe8;--mu:#858b95;--ac:#c8f542;--T:#ffb020;--CT:#4aa8ff;--no:#ff5a4a;
+--hd:"Big Shoulders Display","Arial Narrow",sans-serif;--bd:"IBM Plex Sans",system-ui,sans-serif}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--bd)}
-body{padding:calc(10px + env(safe-area-inset-top,0px)) 14px calc(84px + env(safe-area-inset-bottom,0px));max-width:640px;margin:0 auto}
-button,input,select{font:inherit;color:inherit}
-button{border:0;background:none;cursor:pointer}
-h1,h2,h3{font-family:var(--hd);margin:0;font-weight:700;text-transform:uppercase;letter-spacing:.02em;line-height:1}
-.top{display:flex;align-items:center;gap:10px;margin-bottom:14px;min-height:40px}
-.top h1{font-size:32px;flex:1}
-.bk{width:38px;height:38px;border-radius:10px;background:var(--sf);font-size:22px}
-.in{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--ln);background:var(--sf);font-size:16px;outline:0;margin-bottom:10px}
-.in:focus{border-color:var(--mu)}
-.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.tile,.mh{--c:#888;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 42%,#161a1f),#12151a 75%);border:1px solid color-mix(in srgb,var(--c) 38%,#2a2f38);border-radius:16px}
-.tile{text-align:left;padding:14px;min-height:104px;display:flex;flex-direction:column;justify-content:space-between}
-.tile h2{font-size:32px}
-.tile span,.mh span{font-size:13px;color:color-mix(in srgb,var(--c) 45%,#d0d0d0)}
-.mh{padding:20px 16px;margin-bottom:12px}.mh h2{font-size:56px}
-.seg{display:flex;gap:8px;margin-bottom:10px}
-.seg button{flex:1;padding:12px 6px;border-radius:12px;background:var(--sf);border:1px solid var(--ln);font:700 20px var(--hd);letter-spacing:.04em}
-.seg button.on{color:#10131a;border-color:transparent;background:var(--c,#aaa)}
-.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px;scrollbar-width:none}
-.chip{flex:none;display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;border:1px solid var(--ln);background:var(--sf);font-size:14px;font-weight:500}
-.chip i{width:9px;height:9px;border-radius:50%;background:var(--c)}
-.chip.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 18%,#161a1f)}
-.chip b{color:var(--mu);font-weight:500}
-.row{--c:#888;display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:13px 12px 13px 14px;margin-bottom:8px;background:var(--sf);border-radius:12px;border-left:4px solid var(--c)}
-.row div{flex:1;min-width:0}.row b{display:block;font-size:16px;font-weight:600}
-.row small{display:block;color:var(--mu);font-size:13px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.row em{color:var(--mu);font-style:normal;font-size:20px}
+html{background:var(--bg) linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/30px 30px,linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/30px 30px;background-attachment:fixed}
+body{margin:0;color:var(--tx);font-family:var(--bd);padding:calc(10px + env(safe-area-inset-top,0px)) 14px calc(100px + env(safe-area-inset-bottom,0px));max-width:640px;margin:0 auto}
+button,input,select{font:inherit;color:inherit}button{border:0;background:none;cursor:pointer}
+h1,h2,h3{font-family:var(--hd);margin:0;font-weight:900;text-transform:uppercase;line-height:.95}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:16px;min-height:42px}
+.top h1{flex:1;font-size:40px;letter-spacing:.01em}
+.ib{position:relative;width:42px;height:42px;border-radius:12px;background:var(--sf);border:1px solid var(--ln);display:grid;place-items:center;font-size:22px}
+.ib svg{width:20px;height:20px}
+.ib i{position:absolute;top:-5px;right:-5px;background:var(--no);color:#fff;font:600 11px var(--bd);min-width:17px;height:17px;border-radius:9px;display:grid;place-items:center;padding:0 4px}
+svg{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.in{width:100%;padding:14px;border-radius:12px;border:1px solid var(--ln);background:var(--sf);font-size:16px;outline:0;margin-bottom:12px}
+.in:focus{border-color:var(--ac)}
+.strip{--c:#888;position:relative;display:flex;align-items:center;justify-content:space-between;width:100%;height:88px;padding:0 20px 0 22px;margin-bottom:10px;border-radius:14px;border:1px solid var(--ln);background:var(--sf);overflow:hidden;text-align:left}
+.strip::before{content:"";position:absolute;right:-34px;top:50%;width:160px;height:160px;transform:translateY(-50%);border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 9px,color-mix(in srgb,var(--c) 42%,transparent) 9px 10px)}
+.strip::after{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c)}
+.strip h2{font-size:42px;position:relative}.strip b{position:relative;font:900 38px var(--hd);color:var(--c)}
+.mh{--c:#888;position:relative;overflow:hidden;padding:18px 4px 16px;margin-bottom:14px;border-bottom:2px solid var(--c)}
+.mh h2{font-size:clamp(58px,19vw,88px);color:var(--c)}
+.mh span{color:var(--mu);font-size:14px}
+.sw{position:relative;display:grid;grid-template-columns:1fr 1fr;background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:4px;margin-bottom:12px}
+.sw i{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:10px;background:var(--T);transition:transform .2s,background .2s}
+.sw.ct i{transform:translateX(100%);background:var(--CT)}
+.sw button{position:relative;padding:12px;font:800 24px var(--hd);letter-spacing:.08em;color:var(--mu)}
+.sw button.on{color:#0a0b0d}
+.inv{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.slot{--c:#888;aspect-ratio:1;border-radius:12px;background:var(--sf);border:1px solid var(--ln);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;color:var(--mu)}
+.slot svg{width:26px;height:26px}.slot b{font-weight:600;color:var(--tx)}
+.slot.on{border-color:var(--c);color:var(--c);background:color-mix(in srgb,var(--c) 12%,var(--sf))}
+.ln{--c:#888;display:flex;gap:14px;align-items:center;width:100%;text-align:left;padding:14px;border-radius:12px;background:var(--sf);margin-bottom:8px;border:1px solid var(--ln)}
+.ln .n{font:900 32px var(--hd);color:var(--c);min-width:36px}
+.ln div{flex:1;min-width:0}.ln b{display:block;font-weight:600;font-size:16px}
+.ln small{display:block;color:var(--mu);font-size:13px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .empty{text-align:center;color:var(--mu);padding:34px 10px;line-height:1.5}
-.media{margin-bottom:14px}
-.media video,.media iframe,.media img{width:100%;border:0;border-radius:14px;background:#000}
+.media{margin-bottom:16px}.media video,.media iframe,.media img{width:100%;border:0;border-radius:14px;background:#000}
 .media video,.media iframe{aspect-ratio:16/9}
-.dh{font-size:40px;margin-bottom:10px}
-.tags{display:flex;gap:8px;margin-bottom:16px}
-.tag{padding:5px 12px;border-radius:999px;font-size:14px;font-weight:600;background:color-mix(in srgb,var(--c) 22%,#161a1f);color:var(--c)}
-.step{padding:12px 14px;background:var(--sf);border-radius:12px;margin-bottom:8px}
-.step small,.lb{display:block;color:var(--mu);font-size:13px;margin-bottom:5px}
-.step p,.note{margin:0;line-height:1.45}.note{color:#c9c6bf;padding:6px 2px}
-.btn{width:100%;padding:15px;border-radius:14px;background:var(--T);color:#16120a;font:700 22px var(--hd);letter-spacing:.04em;text-transform:uppercase}
-.btn:disabled{opacity:.5}
-.card{background:var(--sf);border-radius:14px;padding:12px;margin-bottom:12px}
-.card h3{font-size:24px;margin-bottom:4px}.card small{color:var(--mu)}
-.acts{display:flex;gap:8px;margin-top:10px}
-.acts button{flex:1;padding:11px;border-radius:10px;font-weight:600}
-.y{background:var(--ok);color:#06150d}.n{background:var(--sf2);color:var(--no);border:1px solid var(--ln)}
-.sec{font-size:22px;margin:18px 0 10px}
-nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:6px;padding:8px 14px calc(8px + env(safe-area-inset-bottom,0px));background:rgba(12,14,17,.92);backdrop-filter:blur(12px);border-top:1px solid var(--ln)}
-nav button{flex:1;max-width:200px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px;border-radius:12px;color:var(--mu);font-size:12px;font-weight:500}
-nav button.on{color:var(--T);background:var(--sf)}
-nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-nav i{position:absolute;margin:-4px 0 0 18px;background:var(--no);color:#fff;font-style:normal;font-size:11px;min-width:16px;height:16px;border-radius:8px;text-align:center;line-height:16px}
+.dh{font-size:clamp(40px,13vw,60px);margin-bottom:12px}
+.tags{display:flex;gap:8px;margin-bottom:12px}
+.tag{padding:5px 12px;border-radius:8px;font:800 18px var(--hd);letter-spacing:.06em;background:color-mix(in srgb,var(--c) 20%,var(--sf));color:var(--c)}
+.st{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--ln)}
+.st b{font:900 30px var(--hd);color:var(--ac);width:24px}.st small{display:block;color:var(--mu);font-size:13px;margin-bottom:3px}.st p{margin:0;line-height:1.45}
+.fab{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));height:56px;padding:0 22px 0 16px;border-radius:28px;background:var(--ac);color:#0a0b0d;font:800 21px var(--hd);letter-spacing:.04em;display:flex;align-items:center;gap:8px;box-shadow:0 8px 28px rgba(200,245,66,.25)}
+.fab svg{width:24px;height:24px;stroke-width:2.6}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:flex-end;z-index:5}.sheet.on{display:flex}
+.pane{width:100%;max-width:640px;margin:0 auto;max-height:92vh;overflow:auto;background:var(--bg);border-top:1px solid var(--ln);border-radius:22px 22px 0 0;padding:18px 16px calc(24px + env(safe-area-inset-bottom,0px))}
+.pane h2{font-size:34px;margin-bottom:14px}
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;height:120px;border:2px dashed var(--mu);border-radius:16px;color:var(--mu);text-align:center;padding:10px;margin-bottom:10px;cursor:pointer;word-break:break-all}
+.drop svg{width:30px;height:30px}.drop.ok{border-color:var(--ac);color:var(--ac)}
+.lb{display:block;color:var(--mu);font-size:13px;margin:4px 0 6px}
+details{margin-bottom:14px}summary{color:var(--mu);font-size:14px;padding:8px 0;cursor:pointer}
+.btn{width:100%;padding:16px;border-radius:14px;background:var(--ac);color:#0a0b0d;font:800 24px var(--hd);letter-spacing:.05em}.btn:disabled{opacity:.5}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:12px;margin-bottom:12px}
+.card h3{font-size:28px;margin-bottom:4px}.card small{color:var(--mu)}.card .note{margin:8px 0 0;color:#c9c6bf;line-height:1.4}
+.acts{display:flex;gap:8px;margin-top:10px}.acts button{flex:1;padding:12px;border-radius:10px;font-weight:600}
+.y{background:var(--ac);color:#0a0b0d}.n{background:var(--bg);color:var(--no);border:1px solid var(--ln)}
+.sec{font-size:26px;margin:20px 0 10px}
+.arow{display:flex;align-items:center;gap:10px;padding:12px;background:var(--sf);border-radius:12px;margin-bottom:8px}.arow div{flex:1;min-width:0}.arow b{display:block}.arow small{color:var(--mu)}
+@media (prefers-reduced-motion:reduce){.sw i{transition:none}}
 </style>
 </head>
 <body>
-<div class="top"><button class="bk" id="bk" data-a="back" hidden>‹</button><h1 id="ttl">Raskidlar</h1></div>
-<input class="in" id="q" placeholder="Qidirish: mirage window, jungle...">
+<div class="top"><button class="ib" id="bk" data-a="back" hidden>‹</button><h1 id="ttl">Raskidlar</h1><button class="ib" id="adm" data-a="admin" hidden><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></button></div>
 <div id="app"></div>
-<nav id="nav"></nav>
+<button class="fab" id="fab" data-a="add" hidden><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Raskid qo'shish</button>
+<div class="sheet" id="sheet" data-a="shade"><div class="pane" id="pane"></div></div>
 
 <script>
-/* Server manzili: ngrok bergan https manzil (oxirida / siz) */
 const API="https://raskidbot.pubgmafghan.workers.dev";
-
 const tg=window.Telegram&&Telegram.WebApp;
-if(tg){tg.ready();tg.expand();try{tg.setHeaderColor("#0c0e11");tg.setBackgroundColor("#0c0e11")}catch(e){}}
-const MAPS={mirage:["Mirage","#e08a3c"],inferno:["Inferno","#d9533b"],dust2:["Dust II","#c9a45c"],nuke:["Nuke","#4f9fd6"],ancient:["Ancient","#4fae7a"],anubis:["Anubis","#d4b23c"],overpass:["Overpass","#7aa36a"],vertigo:["Vertigo","#7b8fd4"]};
-const TYPES={smoke:["Smoke","#a3acb6"],flash:["Flash","#f0d44a"],molotov:["Molotov","#f0763a"],he:["HE","#7fc96a"]};
-const IC={home:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',add:'<path d="M12 5v14M5 12h14"/>',admin:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>'};
-let data=[],me=null,s={tab:"home",map:null,side:"T",type:null,item:null,q:""},fm={map:"mirage",side:"T",type:"smoke"};
+if(tg){tg.ready();tg.expand();try{tg.setHeaderColor("#0a0b0d");tg.setBackgroundColor("#0a0b0d")}catch(e){}}
+const MAPS={mirage:["Mirage","#ff9a3d"],inferno:["Inferno","#ff5a4a"],dust2:["Dust II","#e3c16f"],nuke:["Nuke","#4aa8ff"],ancient:["Ancient","#3fd18a"],anubis:["Anubis","#f2d13d"],overpass:["Overpass","#9bcf6a"],vertigo:["Vertigo","#8e9bff"]};
+const TYPES={smoke:["Smoke","#b4bcc6",'<path d="M7 18a4 4 0 1 1 1-7.9A5 5 0 0 1 18 11a3.5 3.5 0 0 1-.5 7z"/>'],flash:["Flash","#ffe14a",'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>'],molotov:["Molotov","#ff7a3a",'<path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/>'],he:["HE","#8be06a",'<circle cx="12" cy="14" r="7"/><path d="M12 7V3h4"/>']};
+let data=[],me=null,s={map:null,side:"T",type:null,item:null,q:"",admin:false,sheet:false},fm={map:"mirage",side:"T",type:"smoke"};
 const $=id=>document.getElementById(id);
 const esc=t=>String(t==null?"":t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const init=()=>tg?tg.initData:"";
-const say=m=>tg&&tg.showAlert?tg.showAlert(m):alert(m);
-const H={"ngrok-skip-browser-warning":"1"};
+const init=()=>tg?tg.initData:"",say=m=>tg&&tg.showAlert?tg.showAlert(m):alert(m),H={"ngrok-skip-browser-warning":"1"};
+const ico=t=>`<svg viewBox="0 0 24 24">${TYPES[t][2]}</svg>`;
 async function post(p,b){
   const r=await fetch(API+p,{method:"POST",headers:{...H,"Content-Type":"application/json"},body:JSON.stringify({initData:init(),...b})});
   const j=await r.json().catch(()=>null);
-  if(!r.ok)throw new Error((j&&j.error)||await r.text().catch(()=>"")||"Server xatosi");
-  return j;
+  if(!r.ok)throw new Error((j&&j.error)||"Server xatosi");return j;
 }
 function media(u){
   if(!u)return"";
   const yt=u.match(/(?:youtu\.be\/|v=|shorts\/)([\w-]{11})/);
   if(yt)return`<iframe src="https://www.youtube.com/embed/${yt[1]}" allowfullscreen></iframe>`;
-  if(/\.(mp4|webm|mov)$/i.test(u)||u.includes("/api/file/"))return`<video src="${esc(u)}" controls playsinline></video>`;
+  if(/\.(mp4|webm|mov)$/i.test(u))return`<video src="${esc(u)}" controls playsinline></video>`;
   return`<img src="${esc(u)}" alt="">`;
 }
-const row=(r,i,sub)=>`<button class="row" style="--c:${(TYPES[r.type]||[,"#888"])[1]}" data-a="item" data-v="${i}"><div><b>${esc(r.title)}</b><small>${esc(sub)}</small></div><em>›</em></button>`;
+const pad=n=>String(n).padStart(2,"0");
+const line=(r,i,n,sub)=>`<button class="ln" style="--c:${(TYPES[r.type]||[,"#888"])[1]}" data-a="item" data-v="${i}"><span class="n">${pad(n)}</span><div><b>${esc(r.title)}</b><small>${esc(sub)}</small></div></button>`;
+const swHtml=(a,cur)=>`<div class="sw ${cur==="CT"?"ct":""}"><i></i>${["T","CT"].map(v=>`<button data-a="${a}" data-v="${v}" class="${cur===v?"on":""}">${v}</button>`).join("")}</div>`;
 
-function nav(){
-  const t=[["home","Raskidlar"]];
-  if(me&&me.can_add)t.push(["add","Qo'shish"]);
-  if(me&&me.admin)t.push(["admin","Admin"]);
-  $("nav").style.display=t.length>1?"flex":"none";
-  $("nav").innerHTML=t.map(x=>`<button data-a="tab" data-v="${x[0]}" class="${s.tab===x[0]?"on":""}"><svg viewBox="0 0 24 24">${IC[x[0]]}</svg>${x[1]}${x[0]==="admin"&&me.pending?`<i>${me.pending}</i>`:""}</button>`).join("");
-}
 function render(){
-  nav();
-  if(s.tab==="add")return viewAdd();
-  if(s.tab==="admin")return viewAdmin();
-  const inMaps=!s.map&&s.item==null,searching=inMaps&&s.q.trim();
-  $("q").style.display=inMaps?"block":"none";
+  const home=!s.map&&s.item==null&&!s.admin,sub=!home;
+  $("adm").hidden=!(me&&me.admin)||s.admin;
+  $("adm").innerHTML=`<svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg>`+(me&&me.pending?`<i>${me.pending}</i>`:"");
+  $("fab").hidden=!(me&&me.can_add)||s.admin||s.item!=null||s.sheet;
   let h="",title="Raskidlar";
-  if(s.item!=null){
-    const r=data[s.item],tc=(TYPES[r.type]||["",""])[1],mc=r.side==="T"?"var(--T)":"var(--CT)";
-    title=(MAPS[r.map]||[r.map])[0];
-    h=`<div class="media">${media(r.media)}</div><h2 class="dh">${esc(r.title)}</h2><div class="tags"><span class="tag" style="--c:${mc}">${esc(r.side)}</span><span class="tag" style="--c:${tc}">${esc((TYPES[r.type]||[r.type])[0])}</span></div>`
-    +[["Qayerda turish",r.stand],["Qayerga nishon",r.aim],["Qanday otish",r.throw]].filter(x=>x[1]).map(x=>`<div class="step"><small>${x[0]}</small><p>${esc(x[1])}</p></div>`).join("")+(r.descr?`<p class="note">${esc(r.descr)}</p>`:"");
+  if(s.admin){title="Admin";viewAdmin()}
+  else if(s.item!=null){
+    const r=data[s.item],tc=(TYPES[r.type]||[,"#888"])[1];title=(MAPS[r.map]||[r.map])[0];
+    h=`<div class="media">${media(r.media)}</div><h2 class="dh">${esc(r.title)}</h2><div class="tags"><span class="tag" style="--c:var(--${r.side})">${esc(r.side)}</span><span class="tag" style="--c:${tc}">${esc((TYPES[r.type]||[r.type])[0])}</span></div>`
+    +[["Qayerda turish",r.stand],["Qayerga nishon",r.aim],["Qanday otish",r.throw]].filter(x=>x[1]).map((x,i)=>`<div class="st"><b>${i+1}</b><div><small>${x[0]}</small><p>${esc(x[1])}</p></div></div>`).join("")
+    +(r.descr?`<p class="empty" style="text-align:left;padding:10px 0">${esc(r.descr)}</p>`:"");
   }else if(s.map){
     const [name,c]=MAPS[s.map],all=data.map((r,i)=>[r,i]).filter(x=>x[0].map===s.map&&x[0].side===s.side);
-    const cnt=t=>all.filter(x=>x[0].type===t).length,list=all.filter(x=>!s.type||x[0].type===s.type);
-    title=name;
-    h=`<div class="mh" style="--c:${c}"><h2>${name}</h2><span>${data.filter(r=>r.map===s.map).length} ta raskid</span></div>
-    <div class="seg">${["T","CT"].map(v=>`<button data-a="side" data-v="${v}" style="--c:var(--${v})" class="${s.side===v?"on":""}">${v}</button>`).join("")}</div>
-    <div class="chips">${Object.keys(TYPES).map(t=>`<button class="chip ${s.type===t?"on":""}" style="--c:${TYPES[t][1]}" data-a="type" data-v="${t}"><i></i>${TYPES[t][0]} <b>${cnt(t)}</b></button>`).join("")}</div>`
-    +(list.length?list.map(x=>row(x[0],x[1],x[0].descr||x[0].stand||"")).join(""):`<div class="empty">Bu yerda hali raskid yo'q.</div>`);
-  }else if(searching){
-    const w=s.q.toLowerCase().split(/\s+/);
-    const res=data.map((r,i)=>[r,i]).filter(x=>{const t=`${x[0].map} ${x[0].side} ${x[0].type} ${x[0].title} ${x[0].descr||""}`.toLowerCase();return w.every(k=>t.includes(k))});
-    h=res.length?res.map(x=>row(x[0],x[1],`${(MAPS[x[0].map]||[x[0].map])[0]} · ${x[0].side}`)).join(""):`<div class="empty">Hech narsa topilmadi.</div>`;
-  }else h=`<div class="tiles">${Object.keys(MAPS).map(m=>`<button class="tile" style="--c:${MAPS[m][1]}" data-a="map" data-v="${m}"><h2>${MAPS[m][0]}</h2><span>${data.filter(r=>r.map===m).length} ta raskid</span></button>`).join("")}</div>`;
-  $("app").innerHTML=h;$("ttl").textContent=title;
-  const sub=!inMaps,real=tg&&tg.initData;
-  $("bk").hidden=!sub||!!real;
-  if(real)sub?tg.BackButton.show():tg.BackButton.hide();
-  window.scrollTo(0,0);
+    const list=all.filter(x=>!s.type||x[0].type===s.type);title=name;
+    h=`<div class="mh" style="--c:${c}"><h2>${name}</h2><span>${data.filter(r=>r.map===s.map).length} ta raskid</span></div>${swHtml("side",s.side)}
+    <div class="inv">${Object.keys(TYPES).map(t=>`<button class="slot ${s.type===t?"on":""}" style="--c:${TYPES[t][1]}" data-a="type" data-v="${t}">${ico(t)}${TYPES[t][0]}<b>${all.filter(x=>x[0].type===t).length}</b></button>`).join("")}</div>`
+    +(list.length?list.map((x,i)=>line(x[0],x[1],i+1,x[0].descr||x[0].stand||"")).join(""):`<div class="empty">Bu yerda hali raskid yo'q.<br>Pastdagi tugma bilan birinchisini qo'shing.</div>`);
+  }else{
+    const w=s.q.toLowerCase().split(/\s+/).filter(Boolean);
+    const res=w.length?data.map((r,i)=>[r,i]).filter(x=>{const t=`${x[0].map} ${x[0].side} ${x[0].type} ${x[0].title} ${x[0].descr||""}`.toLowerCase();return w.every(k=>t.includes(k))}):null;
+    h=`<input class="in" id="q" placeholder="Qidirish: mirage window..." value="${esc(s.q)}">`
+    +(res?(res.length?res.map((x,i)=>line(x[0],x[1],i+1,`${(MAPS[x[0].map]||[x[0].map])[0]} · ${x[0].side}`)).join(""):`<div class="empty">Hech narsa topilmadi.</div>`)
+    :Object.keys(MAPS).map(m=>`<button class="strip" style="--c:${MAPS[m][1]}" data-a="map" data-v="${m}"><h2>${MAPS[m][0]}</h2><b>${pad(data.filter(r=>r.map===m).length)}</b></button>`).join(""));
+  }
+  if(!s.admin)$("app").innerHTML=h;
+  $("ttl").textContent=title;
+  const real=tg&&tg.initData;$("bk").hidden=!sub||!!real;
+  if(real)(sub||s.sheet)?tg.BackButton.show():tg.BackButton.hide();
+  if(!s.admin&&home&&s.q){const q=$("q");q.focus();q.setSelectionRange(q.value.length,q.value.length)}
 }
-function viewAdd(){
-  $("q").style.display="none";$("ttl").textContent="Yangi raskid";$("bk").hidden=true;tg&&tg.BackButton.hide();
-  const seg=(k,o,c)=>`<div class="seg">${o.map(v=>`<button data-a="fm" data-k="${k}" data-v="${v[0]}" style="--c:${c||v[2]}" class="${fm[k]===v[0]?"on":""}">${v[1]}</button>`).join("")}</div>`;
-  $("app").innerHTML=`<span class="lb">Karta</span><select class="in" id="f_map">${Object.keys(MAPS).map(m=>`<option value="${m}" ${fm.map===m?"selected":""}>${MAPS[m][0]}</option>`).join("")}</select>
-  <span class="lb">Tomon</span>${seg("side",[["T","T","var(--T)"],["CT","CT","var(--CT)"]])}
-  <span class="lb">Granata</span>${seg("type",Object.keys(TYPES).map(t=>[t,TYPES[t][0],TYPES[t][1]]))}
-  <span class="lb">Nomi</span><input class="in" id="f_title" placeholder="Masalan: Window smoke" maxlength="80">
-  <span class="lb">Qayerda turish (ixtiyoriy)</span><input class="in" id="f_stand" placeholder="T rampa, chap devor yonida">
-  <span class="lb">Qayerga nishon (ixtiyoriy)</span><input class="in" id="f_aim" placeholder="Antenna tepasidagi bulut">
-  <span class="lb">Qanday otish (ixtiyoriy)</span><input class="in" id="f_throw" placeholder="Jump-throw, chap tugma">
-  <span class="lb">Video yoki rasm (40 MB gacha)</span><input class="in" id="f_file" type="file" accept="video/*,image/*">
-  <span class="lb">Yoki YouTube havolasi</span><input class="in" id="f_url" placeholder="https://youtu.be/...">
+function sheet(open){
+  s.sheet=open;$("sheet").classList.toggle("on",open);
+  if(!open){render();return}
+  if(s.map){fm.map=s.map;fm.side=s.side;if(s.type)fm.type=s.type}
+  $("fab").hidden=true;if(tg&&tg.initData)tg.BackButton.show();
+  $("pane").innerHTML=`<h2>Yangi raskid</h2>
+  <label class="drop" id="drop"><input type="file" id="f_file" accept="video/*,image/*" hidden><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg><span id="dt">Video yoki rasm tanlang</span></label>
+  <input class="in" id="f_url" placeholder="yoki YouTube havolasini qo'ying">
+  <input class="in" id="f_title" placeholder="Raskid nomi (masalan: Window smoke)" maxlength="80">
+  <span class="lb">Karta</span><select class="in" id="f_map">${Object.keys(MAPS).map(m=>`<option value="${m}" ${fm.map===m?"selected":""}>${MAPS[m][0]}</option>`).join("")}</select>
+  ${swHtml("fs",fm.side)}
+  <div class="inv" id="f_inv">${Object.keys(TYPES).map(t=>`<button class="slot ${fm.type===t?"on":""}" style="--c:${TYPES[t][1]}" data-a="ft" data-v="${t}">${ico(t)}${TYPES[t][0]}</button>`).join("")}</div>
+  <details><summary>+ Qo'shimcha izohlar (ixtiyoriy)</summary>
+  <input class="in" id="f_stand" placeholder="Qayerda turish"><input class="in" id="f_aim" placeholder="Qayerga nishon"><input class="in" id="f_throw" placeholder="Qanday otish (jump-throw...)"></details>
   <button class="btn" id="sub" data-a="submit">Yuborish</button>`;
+  $("f_file").onchange=e=>{const f=e.target.files[0];$("dt").textContent=f?f.name:"Video yoki rasm tanlang";$("drop").classList.toggle("ok",!!f)};
 }
 async function submit(){
-  const b=$("sub"),fd=new FormData(),v=k=>$("f_"+k).value;
+  const b=$("sub"),fd=new FormData(),v=k=>$("f_"+k).value,f=$("f_file").files[0];
+  if(!f&&!v("url").trim())return say("Video, rasm yoki havola kerak.");
+  if(!v("title").trim())return say("Raskid nomini yozing.");
   fd.append("initData",init());fd.append("map",v("map"));fd.append("side",fm.side);fd.append("type",fm.type);
-  ["title","stand","aim","throw","url"].forEach(k=>fd.append(k,v(k)));
-  const f=$("f_file").files[0];if(f)fd.append("file",f);
+  ["title","stand","aim","throw","url"].forEach(k=>fd.append(k,v(k)));if(f)fd.append("file",f);
   b.disabled=true;b.textContent="Yuklanmoqda...";
   try{
-    const r=await fetch(API+"/api/add",{method:"POST",headers:H,body:fd});
-    const j=await r.json().catch(()=>null);
-    if(!r.ok)throw new Error((j&&j.error)||await r.text().catch(()=>"")||"Xato");
-    say(j.msg);if(me.admin)loadData();s.tab="home";render();
+    const r=await fetch(API+"/api/add",{method:"POST",headers:H,body:fd}),j=await r.json().catch(()=>null);
+    if(!r.ok)throw new Error((j&&j.error)||"Xato");
+    sheet(false);say(j.msg);loadData();refreshMe();
   }catch(e){say("Xato: "+e.message);b.disabled=false;b.textContent="Yuborish"}
 }
 async function viewAdmin(){
-  $("q").style.display="none";$("ttl").textContent="Admin";$("bk").hidden=true;tg&&tg.BackButton.hide();
   $("app").innerHTML='<div class="empty">Yuklanmoqda...</div>';
   try{
-    const [p,l]=await Promise.all([post("/api/pending",{}),post("/api/list",{})]);
-    me.pending=p.length;nav();
+    const [p,l]=await Promise.all([post("/api/pending",{}),post("/api/list",{})]);me.pending=p.length;$("adm").innerHTML="";
     $("app").innerHTML=`<h3 class="sec" style="margin-top:0">Kutilayotganlar (${p.length})</h3>`
     +(p.length?p.map(x=>`<div class="card"><h3>${esc(x.title)}</h3><small>${esc((MAPS[x.map]||[x.map])[0])} · ${x.side} · ${esc((TYPES[x.type]||[x.type])[0])} · ${esc(x.user_name)}</small>
       ${x.stand||x.aim||x.throw?`<p class="note">${[x.stand,x.aim,x.throw].filter(Boolean).map(esc).join(" → ")}</p>`:""}
-      <div class="media" style="margin:10px 0 0">${media(x.path?`${API}/api/file/${x.id}?a=${encodeURIComponent(init())}`:x.url)}</div>
+      <div class="media" style="margin:10px 0 0">${media(x.media)}</div>
       <div class="acts"><button class="y" data-a="rv" data-id="${x.id}" data-v="ok">Qabul qilish</button><button class="n" data-a="rv" data-id="${x.id}" data-v="no">Rad etish</button></div></div>`).join(""):'<div class="empty">Kutilayotgan raskid yo\'q 👍</div>')
-    +`<h3 class="sec">Barcha raskidlar (${l.length})</h3>`+l.map(x=>`<div class="row" style="--c:${(TYPES[x.type]||[,"#888"])[1]}"><div><b>${esc(x.title)}</b><small>${esc((MAPS[x.map]||[x.map])[0])} · ${x.side} · ${esc(x.type)}</small></div><button data-a="del" data-id="${x.id}" data-t="${esc(x.title)}" style="color:var(--no);font-size:14px">O'chirish</button></div>`).join("");
+    +`<h3 class="sec">Barcha raskidlar (${l.length})</h3>`+l.map(x=>`<div class="arow"><div><b>${esc(x.title)}</b><small>${esc((MAPS[x.map]||[x.map])[0])} · ${x.side} · ${esc(x.type)}</small></div><button data-a="del" data-id="${x.id}" data-t="${esc(x.title)}" style="color:var(--no)">O'chirish</button></div>`).join("");
   }catch(e){$("app").innerHTML=`<div class="empty">Xato: ${esc(e.message)}</div>`}
 }
-function back(){if(s.item!=null)s.item=null;else{s.map=null;s.type=null}render()}
+function back(){
+  if(s.sheet)return sheet(false);
+  if(s.admin)s.admin=false;else if(s.item!=null)s.item=null;else{s.map=null;s.type=null}
+  render();window.scrollTo(0,0);
+}
 if(tg)tg.BackButton.onClick(back);
 document.addEventListener("click",async e=>{
   const el=e.target.closest("[data-a]");if(!el)return;
   const a=el.dataset.a,v=el.dataset.v;
+  if(a==="shade"){if(e.target===el)sheet(false);return}
   if(a==="back")return back();
-  if(a==="tab"){s.tab=v;if(v==="home"){s.map=null;s.item=null}return render()}
-  if(a==="fm"){fm[el.dataset.k]=v;fm.map=$("f_map").value;const k={};["title","stand","aim","throw","url"].forEach(x=>k[x]=$("f_"+x).value);viewAdd();for(const x in k)$("f_"+x).value=k[x];return}
+  if(a==="add")return sheet(true);
+  if(a==="admin"){s.admin=true;return render()}
   if(a==="submit")return submit();
-  if(a==="rv"){try{await post("/api/review",{id:+el.dataset.id,action:v});if(v==="ok")loadData();viewAdmin()}catch(x){say("Xato: "+x.message)}return}
+  if(a==="fs"||a==="ft"){
+    fm[a==="fs"?"side":"type"]=v;
+    $("pane").querySelector(".sw").classList.toggle("ct",fm.side==="CT");
+    $("pane").querySelectorAll(".sw button").forEach(b=>b.classList.toggle("on",b.dataset.v===fm.side));
+    $("f_inv").querySelectorAll(".slot").forEach(b=>b.classList.toggle("on",b.dataset.v===fm.type));return;
+  }
+  if(a==="rv"){try{await post("/api/review",{id:el.dataset.id,action:v});loadData();refreshMe();viewAdmin()}catch(x){say("Xato: "+x.message)}return}
   if(a==="del"){const go=async()=>{try{await post("/api/delete",{id:+el.dataset.id});loadData();viewAdmin()}catch(x){say("Xato: "+x.message)}};
     return tg&&tg.showConfirm?tg.showConfirm(`"${el.dataset.t}" o'chirilsinmi?`,ok=>ok&&go()):confirm("O'chirilsinmi?")&&go()}
   if(a==="map"){s.map=v;s.type=null}
   if(a==="side"){s.side=v;s.type=null}
   if(a==="type")s.type=s.type===v?null:v;
   if(a==="item")s.item=+v;
-  render();
+  render();window.scrollTo(0,0);
 });
-$("q").addEventListener("input",e=>{s.q=e.target.value;const y=window.scrollY;render();window.scrollTo(0,y)});
-function loadData(){return fetch("data.json?t="+Date.now()).then(r=>r.json()).then(j=>{data=j;if(s.tab==="home")render()}).catch(()=>{$("app").innerHTML='<div class="empty">data.json yuklanmadi.</div>'})}
-loadData();render();
-if(init())post("/api/me",{}).then(j=>{me=j;nav()}).catch(()=>{});
+document.addEventListener("input",e=>{if(e.target.id==="q"){s.q=e.target.value;render()}});
+function loadData(){return fetch("data.json?t="+Date.now()).then(r=>r.json()).then(j=>{data=j;if(!s.admin)render()}).catch(()=>{$("app").innerHTML='<div class="empty">data.json yuklanmadi.</div>'})}
+function refreshMe(){if(init())post("/api/me",{}).then(j=>{me=j;render()}).catch(e=>{$("app").insertAdjacentHTML("afterbegin",'<div class="empty" style="padding:6px;color:var(--no)">Server ulanmadi: '+esc(e.message)+'</div>')})}
+loadData();render();refreshMe();
 </script>
 </body>
 </html>
