@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CS2 Raskidlar</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{--bg:#fff;--fg:#111;--card:#f1f2f4;--accent:#2481cc;--hint:#777}
+@media (prefers-color-scheme:dark){:root{--bg:#17181b;--fg:#eee;--card:#25272c;--hint:#999}}
+*{box-sizing:border-box}
+body{margin:0;padding:12px;font-family:system-ui,sans-serif;background:var(--bg);color:var(--fg)}
+.row{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
+.chip{flex:none;padding:8px 14px;border-radius:20px;background:var(--card);color:var(--fg);border:0;font-size:14px}
+.chip.on{background:var(--accent);color:#fff}
+input{width:100%;padding:10px 12px;margin:4px 0 8px;border-radius:10px;border:0;background:var(--card);color:var(--fg);font-size:15px}
+.item{background:var(--card);border-radius:12px;padding:12px;margin-bottom:8px}
+.item b{display:block}
+.item small{color:var(--hint)}
+.empty{text-align:center;color:var(--hint);padding:30px 0}
+.back{display:none;margin-bottom:10px}
+video,img,iframe{width:100%;border-radius:12px;border:0;aspect-ratio:16/9;background:#000}
+img{aspect-ratio:auto}
+</style>
+</head>
+<body>
+<button class="chip back" id="back">⬅️ Orqaga</button>
+<div id="list">
+  <div class="row" id="maps"></div>
+  <div class="row" id="sides"></div>
+  <div class="row" id="types"></div>
+  <input id="q" placeholder="🔎 Qidirish...">
+  <div id="items"></div>
+</div>
+<div id="detail" style="display:none"></div>
+
+<script>
+const tg = window.Telegram.WebApp; tg.ready(); tg.expand();
+const MAPS=["mirage","inferno","dust2","nuke","ancient","anubis","overpass","vertigo"];
+const SIDES=["T","CT"], TYPES=["smoke","flash","molotov","he"];
+let data=[], f={map:null,side:null,type:null};
+const $=id=>document.getElementById(id);
+
+function chips(el,arr,key){
+  el.innerHTML="";
+  arr.forEach(v=>{
+    const b=document.createElement("button");
+    b.className="chip"+(f[key]===v?" on":"");
+    b.textContent=v.toUpperCase();
+    b.onclick=()=>{f[key]=f[key]===v?null:v;render()};
+    el.appendChild(b);
+  });
+}
+
+function media(u){
+  if(!u) return "";
+  const yt=u.match(/(?:youtu\.be\/|v=)([\w-]{11})/);
+  if(yt) return `<iframe src="https://www.youtube.com/embed/${yt[1]}" allowfullscreen></iframe>`;
+  if(/\.(mp4|webm)$/i.test(u)) return `<video src="${u}" controls playsinline></video>`;
+  return `<img src="${u}">`;
+}
+
+function render(){
+  chips($("maps"),MAPS,"map"); chips($("sides"),SIDES,"side"); chips($("types"),TYPES,"type");
+  const q=$("q").value.toLowerCase();
+  const res=data.filter(r=>(!f.map||r.map===f.map)&&(!f.side||r.side===f.side)&&(!f.type||r.type===f.type)
+    &&(`${r.title} ${r.descr}`.toLowerCase().includes(q)));
+  $("items").innerHTML=res.length?"":'<div class="empty">Raskid topilmadi 😕</div>';
+  res.forEach(r=>{
+    const d=document.createElement("div"); d.className="item";
+    d.innerHTML=`<b>${r.title}</b><small>${r.map} · ${r.side} · ${r.type.toUpperCase()}</small>`;
+    d.onclick=()=>show(r); $("items").appendChild(d);
+  });
+}
+
+function show(r){
+  $("list").style.display="none"; $("detail").style.display="block"; $("back").style.display="inline-block";
+  $("detail").innerHTML=`<h3>${r.title}</h3><small>${r.map} · ${r.side} · ${r.type.toUpperCase()}</small>
+    <p>${r.descr||""}</p>${media(r.media)}`;
+  window.scrollTo(0,0);
+}
+$("back").onclick=()=>{
+  $("detail").style.display="none"; $("detail").innerHTML="";
+  $("list").style.display="block"; $("back").style.display="none";
+};
+$("q").oninput=render;
+
+fetch("data.json").then(r=>r.json()).then(j=>{data=j;render()})
+  .catch(()=>{$("items").innerHTML='<div class="empty">data.json yuklanmadi</div>'});
+</script>
+</body>
+</html>
